@@ -2,6 +2,7 @@ import math
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.mlab as slope
 
 #problem 6
 
@@ -33,10 +34,55 @@ X = ['000', '001', '010', '011', '100', '101', '110', '111']
 ##            randP = {'x':random.uniform(-1,1),y:random.uniform(-1,1)}
 ##            if randP['x'] > point1['x']
 
+# code for perceptron for NAND function
+# taken from wikipedia
+##threshold = 0.5
+##learning_rate = 0.1
+##weights = [0, 0, 0]
+##training_set = [((1, 0, 0), 1), ((1, 0, 1), 1), ((1, 1, 0), 1), ((1, 1, 1), 0)]
+## 
+##def dot_product(values, weights):
+##    return sum(value * weight for value, weight in zip(values, weights))
+## 
+##while True:
+##    print('-' * 60)
+##    error_count = 0
+##    for input_vector, desired_output in training_set:
+##        print(weights)
+##        result = dot_product(input_vector, weights) > threshold
+##        error = desired_output - result
+##        if error != 0:
+##            error_count += 1
+##            for index, value in enumerate(input_vector):
+##                weights[index] += learning_rate * error * value
+##    if error_count == 0:
+##        break
+
+# weights - a numpy array of weights values, should only have two indices
+# learnRate - a float containing learn rate constant
+# thresh - threshold for perceptron
+# xyValues - list with tuples, x in first tuple, y in second tuple
+# D - list of expected values, that are ints
+# dIndex - int 
+def perceptron(weights, learnRate, thresh, xyValues, D, dIndex):
+    for xVal, yVal in xyValues
+        xy = np.array([xVal, yVal])
+        y = np.dot(weights.transpose(), xVals)
+        n = 0
+        if y > D[dIndex]:
+            n = 1
+        else:
+            n = -1
+        error = D[dIndex] - n
+        correction = learnRate * error
+        Ds = correction* np.ones((1, 2))
+        if (1 / y) * sum(Ds - xy) < thresh:
+            break
+        else 
+            return perception(weights, learnRate, thresh, xyValues, D, dIndex + 1)
+        
 # initialize values
-weights = []
-for j in range(0,9):
-    weights.append(0)
+weights = np.zeros((1,2))
 
 thresh = 0.5
 learnRate = 0.1
@@ -60,7 +106,8 @@ for i in range(0,9):
 # create d from plot
 xVal = np.linspace(point1['x'], point2['x'], 10)
 yVal = np.linspace(point1['y'], point2['y'], 10)
-plt.plot(xVal,yVal)
+fit = np.polyfit(xVal, yVal, 1)
+plt.plot(xVal,fit)
 for randX, randY in points:
     plt.plot(randX, randY, 'ro')
 plt.axis([-1,1,-1,1])
